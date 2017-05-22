@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Listagem de Países</ui:define>
+        <ui:define name="conteudo">
+            <h:form>
+                <p:messages/>
+                <p:growl/>
+                <p:commandButton value="Novo" action="#{controlePais.novo()}"
+                                 ajax="false" icon="ui-icon-plus"/>
+                <p:dataTable value="#{controlePais.dao.lista}" var="obj">
+                    <p:column headerText="ID">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>                    
+                    <p:column headerText="ISO">
+                        <p:outputLabel value="#{obj.iso}"/>
+                    </p:column>                    
+                    <p:column headerText="Ações">
+                        <div align="center">
+                            <p:commandButton action="#{controlePais.editar(obj.id)}"
+                                             ajax="false" icon="ui-icon-pencil"
+                                             title="Editar"/>
+                            <p:commandButton actionListener="#{controlePais.remover(obj.id)}"
+                                             icon="ui-icon-trash" title="Remover"
+                                             update="@form"
+                                             onclick="if (!confirm('Confirma a exclusão?')) return false"/>
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
