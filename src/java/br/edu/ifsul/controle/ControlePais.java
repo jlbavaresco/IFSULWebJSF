@@ -18,11 +18,11 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControlePais implements Serializable {
     
-    private PaisDAO dao;
+    private PaisDAO<Pais> dao;
     private Pais objeto;
     
     public ControlePais(){
-        dao = new PaisDAO();
+        dao = new PaisDAO<>();
     }
     
     public String listar(){
@@ -35,7 +35,13 @@ public class ControlePais implements Serializable {
     }
     
     public String salvar(){
-        if (dao.salvar(objeto)){
+        boolean persistiu = false;
+        if (objeto.getId() == null){
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu){
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
         } else {
@@ -55,7 +61,7 @@ public class ControlePais implements Serializable {
     
     public void remover(Integer id){
         objeto = dao.localizar(id);
-        if (dao.remover(objeto)){
+        if (dao.remove(objeto)){
             Util.mensagemInformacao(dao.getMensagem());
         } else {
             Util.mensagemErro(dao.getMensagem());

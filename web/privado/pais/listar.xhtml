@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Listagem de Países</ui:define>
         <ui:define name="conteudo">
@@ -12,7 +13,37 @@
                 <p:growl/>
                 <p:commandButton value="Novo" action="#{controlePais.novo()}"
                                  ajax="false" icon="ui-icon-plus"/>
-                <p:dataTable value="#{controlePais.dao.lista}" var="obj">
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem:"/>
+                        <p:selectOneMenu value="#{controlePais.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                            <f:selectItem itemLabel="ISO" itemValue="iso"/>
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro:"/>
+                        <p:inputText value="#{controlePais.dao.filtro}" size="15">
+                            <p:ajax update="listagem" event="keyup"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
+                        <p:outputLabel value="Máximo objetos"/>
+                        <p:inputNumber value="#{controlePais.dao.maximoObjetos}"
+                                       decimalPlaces="0" decimalSeparator="" thousandSeparator=""/>
+                        <p:commandButton value="Primeiro" actionListener="#{controlePais.dao.primeiro()}"
+                                         icon="ui-icon-seek-first" update="listagem"/>
+                        <p:commandButton value="Anterior" actionListener="#{controlePais.dao.anterior()}"
+                                         icon="ui-icon-seek-prev" update="listagem"/>  
+                        <p:commandButton value="Próximo" actionListener="#{controlePais.dao.proximo()}"
+                                         icon="ui-icon-seek-next" update="listagem"/> 
+                        <p:commandButton value="Último" actionListener="#{controlePais.dao.ultimo()}"
+                                         icon="ui-icon-seek-end" update="listagem"/>                             
+                    </p:panelGrid>
+                </div>
+                <p:dataTable value="#{controlePais.dao.listaObjetos}" var="obj" id="listagem">
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controlePais.dao.mensagemNavegacao}"/>
+                    </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
                     </p:column>
@@ -30,7 +61,8 @@
                             <p:commandButton actionListener="#{controlePais.remover(obj.id)}"
                                              icon="ui-icon-trash" title="Remover"
                                              update="@form"
-                                             onclick="if (!confirm('Confirma a exclusão?')) return false"/>
+                                             onclick="if (!confirm('Confirma a exclusão?'))
+                                                         return false"/>
                         </div>
                     </p:column>
                 </p:dataTable>
