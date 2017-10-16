@@ -13,7 +13,9 @@ import br.edu.ifsul.modelo.Pais;
 import br.edu.ifsul.modelo.Produto;
 import br.edu.ifsul.modelo.TipoEndereco;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -41,6 +43,12 @@ public class ControlePessoaFisica implements Serializable {
         daoCidade = new CidadeDAO<>();
         daoTipoEndereco = new TipoEnderecoDAO<>();       
         daoProduto = new ProdutoDAO<>();
+    }
+    
+    
+    public void imprimeProdutos(){
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatorioProdutos", parametros, daoProduto.getListaTodos());
     }
        
     public void adicionarDesejo(){

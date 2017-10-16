@@ -15,6 +15,7 @@
             <p:layoutUnit position="north" header="Sistema com JSF do IFSUL" style="text-align: center">
                 <h:form id="menu">
                     <p:megaMenu>
+                        <p:menuitem value="Início" url="/index.xhtml" icon="ui-icon-home" />
                         <p:submenu label="Cadastros">
                             <p:column>
                                 <p:submenu label="Básicos">
@@ -30,6 +31,15 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
+                        <p:submenu label="Relatórios">
+                            <p:column>
+                                <p:submenu label="Produtos">
+                                    <p:menuitem action="#{controlePessoaFisica.imprimeProdutos()}"
+                                                value="Produtos"
+                                                ajax="false" target="_blank"/>                                      
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>                        
                     </p:megaMenu>
                 </h:form>
             </p:layoutUnit>
