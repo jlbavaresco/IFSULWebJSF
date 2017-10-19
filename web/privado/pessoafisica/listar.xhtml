@@ -86,16 +86,7 @@
                     <p:tabView id="tab">
                         <p:tab title="Dados Principais">
                             <div align="center">
-                                <p:panelGrid columns="2">
-                                    <f:facet name="footer">
-                                        <div align="center">
-                                            <p:commandButton value="Salvar"
-                                                             icon="ui-icon-disk"
-                                                             actionListener="#{controlePessoaFisica.salvar()}"
-                                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
-                                                             update=":formEdicao :formListagem"/>
-                                        </div>
-                                    </f:facet>
+                                <p:panelGrid columns="2">                 
                                     <p:outputLabel value="ID"/>
                                     <p:inputText value="#{controlePessoaFisica.objeto.id}" readonly="true" size="5"/>
                                     <p:outputLabel value="Nome" for="txtNome"/>
@@ -219,7 +210,15 @@
                             </p:dataTable>
                         </p:tab>                        
                     </p:tabView>
-
+                   <p:panel>
+                        <div align="center">
+                            <p:commandButton value="Salvar"
+                                             icon="ui-icon-disk"
+                                             actionListener="#{controlePessoaFisica.salvar()}"
+                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+                                             update=":formEdicao :formListagem"/>
+                        </div> 
+                    </p:panel>
                     <ui:include src="/templates/ajaxstatus.xhtml"/>
                 </h:form>
             </p:dialog>
