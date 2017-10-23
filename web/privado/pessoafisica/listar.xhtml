@@ -68,12 +68,15 @@
                                              icon="ui-icon-pencil"
                                              title="Editar"
                                              oncomplete="PF('dlg').show();"
-                                             update=":formEdicao"/>
+                                             update=":formEdicao"/>                            
                             <p:commandButton actionListener="#{controlePessoaFisica.remover(obj.id)}"
                                              icon="ui-icon-trash" title="Remover"
                                              update="@form"
                                              onclick="if (!confirm('Confirma a exclusão?'))
                                                          return false"/>
+                            <p:commandButton action="#{controlePessoaFisica.imprimePessoa(obj.id)}"
+                                             ajax="false" icon="ui-icon-print"
+                                             onclick="this.form.target='_blank';"/>
                         </div>
                     </p:column>
                 </p:dataTable>

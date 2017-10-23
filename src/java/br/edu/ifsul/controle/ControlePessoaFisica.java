@@ -15,7 +15,9 @@ import br.edu.ifsul.modelo.TipoEndereco;
 import br.edu.ifsul.util.Util;
 import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -50,6 +52,14 @@ public class ControlePessoaFisica implements Serializable {
         HashMap parametros = new HashMap();
         UtilRelatorios.imprimeRelatorio("relatorioProdutos", parametros, daoProduto.getListaTodos());
     }
+    
+    public void imprimePessoa(Integer id){
+        objeto = dao.localizar(id);
+        List<PessoaFisica> lista = new ArrayList<>();
+        lista.add(objeto);
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatorioPessoaFisica", parametros, lista);
+    }    
        
     public void adicionarDesejo(){
         if (produto != null){
