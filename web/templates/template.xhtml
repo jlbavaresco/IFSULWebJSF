@@ -16,7 +16,7 @@
                 <h:form id="menu">
                     <p:megaMenu>
                         <p:menuitem value="Início" url="/index.xhtml" icon="ui-icon-home" />
-                        <p:submenu label="Cadastros">
+                        <p:submenu label="Cadastros" rendered="#{controleLogin.usuarioLogado != null}">
                             <p:column>
                                 <p:submenu label="Básicos">
                                     <p:menuitem action="#{controlePais.listar()}"
@@ -31,7 +31,7 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Relatórios">
+                        <p:submenu label="Relatórios" rendered="#{controleLogin.usuarioLogado != null}">
                             <p:column>
                                 <p:submenu label="Produtos">
                                     <p:menuitem action="#{controlePessoaFisica.imprimeProdutos()}"
@@ -39,17 +39,33 @@
                                                 ajax="false" target="_blank"/>                                      
                                 </p:submenu>
                             </p:column>
-                        </p:submenu>                        
+                        </p:submenu>   
+                        <p:submenu label="Usuário">
+                            <p:column>
+                                <p:submenu label="Ações">
+                                <p:menuitem value="#{controleLogin.usuarioLogado.nome} : Sair do sistema"
+                                            rendered="#{controleLogin.usuarioLogado != null}"
+                                            ajax="false"
+                                            action="#{controleLogin.efetuarLogout()}"
+                                            icon="ui-icon-power"/>
+                                <p:menuitem value="Entrar no sistema"
+                                            rendered="#{controleLogin.usuarioLogado == null}"
+                                            ajax="false"
+                                            action="#{controleLogin.paginaLogin()}"
+                                            icon="ui-icon-person"/>
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
                     </p:megaMenu>
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="center">
                 <ui:insert name="conteudo">
-                    
+
                 </ui:insert>
             </p:layoutUnit>
             <ui:insert name="dialogos">
-                
+
             </ui:insert>
             <p:layoutUnit position="south">
                 <ui:include src="/templates/ajaxstatus.xhtml"/>

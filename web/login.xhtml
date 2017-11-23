@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Login do sistema</ui:define>
+        <ui:define name="conteudo">
+            <div align="center">
+                <h:form rendered="#{controleLogin.usuarioLogado == null}">
+                    <p:growl/>
+                    <p:focus for="txtUsuario"/>
+                    <p:panel header="Efetuar login">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Usuário" for="txtUsuario"/>
+                            <p:inputText id="txtUsuario"
+                                         value="#{controleLogin.usuario}"
+                                         placeholder="Obrigatório"
+                                         required="true"
+                                         requiredMessage="O nome do usuário deve ser informado"/>
+                            <p:outputLabel value="Senha" for="txtSenha"/>
+                            <p:password id="txtSenha"
+                                        value="#{controleLogin.senha}"
+                                        placeholder="Obrigatório"
+                                        required="true"
+                                        requiredMessage="A senha deve ser informada"/>
+                            <f:facet name="footer">
+                                <div align="center">
+                                    <p:commandButton action="#{controleLogin.efetuarLogin()}"
+                                                     ajax="false"
+                                                     value="Efetuar login"/>
+                                </div>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:panel>
+
+                </h:form>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
